@@ -1,0 +1,16 @@
+spring:
+  application:
+    name: server
+  profiles:
+    active: local
+    group:
+      local:
+        - file
+        - secret
+logging:
+  level:
+    com.delivery.server: DEBUG
+    org.hibernate.SQL: DEBUG
+    org.hibernate.orm.jdbc.bind: TRACE
+    org.hibernate.orm.jdbc.extract: TRACE
+    org.springframework.transaction.interceptor: TRACE

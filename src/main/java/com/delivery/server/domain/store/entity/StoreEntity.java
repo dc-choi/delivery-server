@@ -1,7 +1,9 @@
-package com.delivery.server.domain.order.entity;
+package com.delivery.server.domain.store.entity;
 
 import com.delivery.server.global.common.entity.BaseEntity;
-import jakarta.persistence.*;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Table;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 import org.hibernate.annotations.Comment;
@@ -12,13 +14,9 @@ import org.hibernate.annotations.Comment;
 @ToString
 @AllArgsConstructor(access = AccessLevel.PROTECTED)
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@Table(name = "orders_option")
-public class OrdersOptionEntity extends BaseEntity {
-    @Comment("옵션 이름")
+@Table(name = "stores")
+public class StoreEntity extends BaseEntity {
+    @Comment("가게 상호명")
     @Column(name = "name", nullable = false, columnDefinition = "VARCHAR(255)")
     private String name;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "orders_detail_id", columnDefinition = "BIGINT", foreignKey = @ForeignKey(value = ConstraintMode.NO_CONSTRAINT))
-    private OrdersDetailEntity ordersDetail;
 }

@@ -15,7 +15,7 @@ import java.math.BigDecimal;
 @AllArgsConstructor(access = AccessLevel.PROTECTED)
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Table(name = "orders_option_detail")
-public class OrdersOptionDetailEntity extends BaseEntity {
+public class OrderOptionDetailEntity extends BaseEntity {
     @Comment("옵션 상세 이름")
     @Column(name = "name", nullable = false, columnDefinition = "VARCHAR(255)")
     private String name;
@@ -26,5 +26,5 @@ public class OrdersOptionDetailEntity extends BaseEntity {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "order_option_id", columnDefinition = "BIGINT", foreignKey = @ForeignKey(value = ConstraintMode.NO_CONSTRAINT))
-    private OrdersOptionEntity orderOption;
+    private OrderOptionEntity orderOption;
 }

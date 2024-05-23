@@ -1,14 +1,10 @@
-package com.delivery.server.domain.item.entity;
+package com.delivery.server.domain.order.entity;
 
 import com.delivery.server.global.common.entity.BaseEntity;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 import org.hibernate.annotations.Comment;
-
-import java.math.BigDecimal;
 
 @Entity
 @Getter
@@ -16,13 +12,13 @@ import java.math.BigDecimal;
 @ToString
 @AllArgsConstructor(access = AccessLevel.PROTECTED)
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@Table(name = "items")
-public class ItemsEntity extends BaseEntity {
-    @Comment("상품명")
+@Table(name = "orders_option")
+public class OrderOptionEntity extends BaseEntity {
+    @Comment("옵션 이름")
     @Column(name = "name", nullable = false, columnDefinition = "VARCHAR(255)")
     private String name;
 
-    @Comment("상품 가격")
-    @Column(name = "price", nullable = false, columnDefinition = "DECIMAL(64, 3)")
-    private BigDecimal price;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "orders_detail_id", columnDefinition = "BIGINT", foreignKey = @ForeignKey(value = ConstraintMode.NO_CONSTRAINT))
+    private OrderDetailEntity ordersDetail;
 }

@@ -1,6 +1,5 @@
 package com.delivery.server.domain.order.entity;
 
-import com.delivery.server.domain.store.entity.StoresEntity;
 import com.delivery.server.global.common.entity.BaseEntity;
 import jakarta.persistence.*;
 import lombok.*;
@@ -15,17 +14,17 @@ import java.math.BigDecimal;
 @ToString
 @AllArgsConstructor(access = AccessLevel.PROTECTED)
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@Table(name = "orders")
-public class OrdersEntity extends BaseEntity {
-    @Comment("주문 번호")
-    @Column(name = "order_no", nullable = false, columnDefinition = "VARCHAR(255)")
-    private String orderNo;
+@Table(name = "orders_detail")
+public class OrderDetailEntity extends BaseEntity {
+    @Comment("주문 상품명")
+    @Column(name = "name", nullable = false, columnDefinition = "VARCHAR(255)")
+    private String name;
 
-    @Comment("주문 가격")
+    @Comment("주문 상품 가격")
     @Column(name = "price", nullable = false, columnDefinition = "DECIMAL(64, 3)")
     private BigDecimal price;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "store_id", columnDefinition = "BIGINT", foreignKey = @ForeignKey(value = ConstraintMode.NO_CONSTRAINT))
-    private StoresEntity store;
+    @JoinColumn(name = "order_id", columnDefinition = "BIGINT", foreignKey = @ForeignKey(value = ConstraintMode.NO_CONSTRAINT))
+    private OrderEntity order;
 }

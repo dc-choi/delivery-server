@@ -123,6 +123,7 @@ public class OrderService {
                 .store(store)
                 .price(totalPrice)
                 .build();
+        requestOrder.setOrderNo(order.getOrderNo());
 
         for (ItemDto requestItem : requestOrder.getItems()) {
             OrderDetailEntity orderDetail = OrderDetailEntity.builder()
@@ -156,7 +157,6 @@ public class OrderService {
 
         orderRepository.save(order);
 
-        requestOrder.setOrderNo(order.getOrderNo());
         return requestOrder;
     }
 }

@@ -21,10 +21,10 @@ public class OrderOptionDetailEntity extends BaseEntity {
     private String name;
 
     @Comment("옵션 상세 가격")
-    @Column(name = "price", nullable = false, columnDefinition = "DECIMAL(64, 3)")
-    private BigDecimal price;
+    @Column(name = "detail_price", nullable = false, columnDefinition = "DECIMAL(64, 3)")
+    private BigDecimal detailPrice;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "order_option_id", columnDefinition = "BIGINT", foreignKey = @ForeignKey(value = ConstraintMode.NO_CONSTRAINT))
+    @JoinColumn(name = "orders_option_id", columnDefinition = "BIGINT", foreignKey = @ForeignKey(value = ConstraintMode.NO_CONSTRAINT))
     private OrderOptionEntity orderOption;
 }

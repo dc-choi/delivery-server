@@ -23,12 +23,12 @@ public class OrderEntity extends BaseEntity {
     @Column(name = "order_no", nullable = false, columnDefinition = "VARCHAR(255)")
     private String orderNo;
 
-    @Comment("주문 가격")
-    @Column(name = "price", nullable = false, columnDefinition = "DECIMAL(64, 3)")
-    private BigDecimal price;
+    @Comment("주문 총 가격")
+    @Column(name = "total_price", nullable = false, columnDefinition = "DECIMAL(64, 3)")
+    private BigDecimal totalPrice;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "store_id", columnDefinition = "BIGINT", foreignKey = @ForeignKey(value = ConstraintMode.NO_CONSTRAINT))
+    @JoinColumn(name = "stores_id", columnDefinition = "BIGINT", foreignKey = @ForeignKey(value = ConstraintMode.NO_CONSTRAINT))
     private StoreEntity store;
 
     @OneToMany(mappedBy = "order")

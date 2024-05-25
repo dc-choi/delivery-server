@@ -23,15 +23,15 @@ public class OrderDetailEntity extends BaseEntity {
     private String name;
 
     @Comment("주문 상품 가격")
-    @Column(name = "price", nullable = false, columnDefinition = "DECIMAL(64, 3)")
-    private BigDecimal price;
+    @Column(name = "unit_price", nullable = false, columnDefinition = "DECIMAL(64, 3)")
+    private BigDecimal unitPrice;
 
     @Comment("주문 상품 수량")
     @Column(name = "quantity", nullable = false, columnDefinition = "BIGINT UNSIGNED")
     private Long quantity;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "order_id", columnDefinition = "BIGINT", foreignKey = @ForeignKey(value = ConstraintMode.NO_CONSTRAINT))
+    @JoinColumn(name = "orders_id", columnDefinition = "BIGINT", foreignKey = @ForeignKey(value = ConstraintMode.NO_CONSTRAINT))
     private OrderEntity order;
 
     @OneToMany(mappedBy = "ordersDetail")

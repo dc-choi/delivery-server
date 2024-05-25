@@ -24,7 +24,7 @@ public class ItemEntity extends BaseEntity {
     private String name;
 
     @Comment("상품 단가")
-    @Column(name = "price", nullable = false, columnDefinition = "DECIMAL(64, 3)")
+    @Column(name = "unit_price", nullable = false, columnDefinition = "DECIMAL(64, 3)")
     private BigDecimal unitPrice;
 
     @Comment("판매 여부")
@@ -32,7 +32,7 @@ public class ItemEntity extends BaseEntity {
     private Boolean status;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "store_id", columnDefinition = "BIGINT", foreignKey = @ForeignKey(value = ConstraintMode.NO_CONSTRAINT))
+    @JoinColumn(name = "stores_id", columnDefinition = "BIGINT", foreignKey = @ForeignKey(value = ConstraintMode.NO_CONSTRAINT))
     private StoreEntity store;
 
     @OneToMany(mappedBy = "item")

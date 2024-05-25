@@ -25,7 +25,7 @@ public class OrderDetailDto {
     public static OrderDetailDto of(OrderDetailEntity orderDetailEntity) {
         return OrderDetailDto.builder()
                 .name(orderDetailEntity.getName())
-                .price(orderDetailEntity.getPrice())
+                .price(orderDetailEntity.getUnitPrice())
                 .quantity(orderDetailEntity.getQuantity())
                 .orderOptions(OrderOptionDto.of(orderDetailEntity.getOrderOptions()))
                 .build();

@@ -46,7 +46,7 @@ public class NotProd {
 
             OptionDetailEntity taste = OptionDetailEntity.builder()
                     .name("추가")
-                    .price(BigDecimal.valueOf(500))
+                    .detailPrice(BigDecimal.valueOf(500))
                     .option(sauce)
                     .build();
 
@@ -58,7 +58,7 @@ public class NotProd {
 
             OptionDetailEntity myTaste = OptionDetailEntity.builder()
                     .name("추가")
-                    .price(BigDecimal.valueOf(2000))
+                    .detailPrice(BigDecimal.valueOf(2000))
                     .option(mySauce)
                     .build();
 
@@ -76,7 +76,7 @@ public class NotProd {
 
             OptionDetailEntity prinkleTaste = OptionDetailEntity.builder()
                     .name("배송 여부")
-                    .price(BigDecimal.valueOf(0))
+                    .detailPrice(BigDecimal.valueOf(0))
                     .option(prinkleSauce)
                     .build();
 

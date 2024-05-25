@@ -23,7 +23,7 @@ public class OrderDto {
     public static OrderDto of(OrderEntity order) {
         return OrderDto.builder()
                 .orderNo(order.getOrderNo())
-                .totalPrice(order.getPrice())
+                .totalPrice(order.getTotalPrice())
                 .store(StoreDto.of(order.getStore()))
                 .orderDetails(OrderDetailDto.of(order.getOrderDetails()))
                 .build();

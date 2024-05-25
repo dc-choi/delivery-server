@@ -18,11 +18,11 @@ public class OptionEntity extends BaseEntity {
     @Column(name = "name", nullable = false, columnDefinition = "VARCHAR(255)")
     private String name;
 
-    @Comment("필수 여부")
+    @Comment("옵션 필수 여부")
     @Column(name = "is_required", columnDefinition = "TINYINT UNSIGNED default 0")
     private Boolean isRequired;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "item_id", columnDefinition = "BIGINT", foreignKey = @ForeignKey(value = ConstraintMode.NO_CONSTRAINT))
+    @JoinColumn(name = "items_id", columnDefinition = "BIGINT", foreignKey = @ForeignKey(value = ConstraintMode.NO_CONSTRAINT))
     private ItemEntity item;
 }

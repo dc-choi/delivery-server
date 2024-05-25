@@ -108,7 +108,7 @@ public class OrderService {
                         throw new IllegalArgumentException("주문하려는 옵션 상세가 아닙니다.");
                     }
 
-                    if (findOptionDetail.getPrice().compareTo(requestOptionDetail.getPrice()) != 0) {
+                    if (findOptionDetail.getDetailPrice().compareTo(requestOptionDetail.getPrice()) != 0) {
                         throw new IllegalArgumentException("옵션 상세 가격이 일치하지 않습니다.");
                     }
 
@@ -126,7 +126,7 @@ public class OrderService {
         OrderEntity order = OrderEntity.builder()
                 .orderNo(UUID.randomUUID().toString())
                 .store(store)
-                .price(totalPrice)
+                .totalPrice(totalPrice)
                 .build();
         requestOrder.setOrderNo(order.getOrderNo());
 
@@ -135,7 +135,7 @@ public class OrderService {
                     .order(order)
                     .name(requestItem.getName())
                     .quantity(requestItem.getQuantity())
-                    .price(requestItem.getUnitPrice())
+                    .unitPrice(requestItem.getUnitPrice())
                     .build();
 
             orderDetailRepository.save(orderDetail);
@@ -152,7 +152,7 @@ public class OrderService {
                     OrderOptionDetailEntity orderOptionDetail = OrderOptionDetailEntity.builder()
                             .orderOption(orderOption)
                             .name(requestOptionDetail.getName())
-                            .price(requestOptionDetail.getPrice())
+                            .detailPrice(requestOptionDetail.getPrice())
                             .build();
 
                     orderOptionDetailRepository.save(orderOptionDetail);

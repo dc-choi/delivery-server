@@ -23,7 +23,7 @@ public class OrderOptionDetailDto {
     public static OrderOptionDetailDto of(OrderOptionDetailEntity orderOptionDetail) {
         return OrderOptionDetailDto.builder()
                 .name(orderOptionDetail.getName())
-                .price(orderOptionDetail.getPrice())
+                .price(orderOptionDetail.getDetailPrice())
                 .build();
     }
 }

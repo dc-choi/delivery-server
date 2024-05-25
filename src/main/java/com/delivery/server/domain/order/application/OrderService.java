@@ -128,6 +128,7 @@ public class OrderService {
             OrderDetailEntity orderDetail = OrderDetailEntity.builder()
                     .order(order)
                     .name(requestItem.getName())
+                    .quantity(requestItem.getQuantity())
                     .price(requestItem.getUnitPrice())
                     .build();
 

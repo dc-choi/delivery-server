@@ -7,6 +7,8 @@ import lombok.experimental.SuperBuilder;
 import org.hibernate.annotations.Comment;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Getter
@@ -24,7 +26,15 @@ public class OrderDetailEntity extends BaseEntity {
     @Column(name = "price", nullable = false, columnDefinition = "DECIMAL(64, 3)")
     private BigDecimal price;
 
+    @Comment("주문 상품 수량")
+    @Column(name = "quantity", nullable = false, columnDefinition = "BIGINT UNSIGNED")
+    private Long quantity;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "order_id", columnDefinition = "BIGINT", foreignKey = @ForeignKey(value = ConstraintMode.NO_CONSTRAINT))
     private OrderEntity order;
+
+    @OneToMany(mappedBy = "ordersDetail")
+    @Builder.Default
+    private List<OrderOptionEntity> orderOptions = new ArrayList<>();
 }

@@ -6,6 +6,9 @@ import lombok.*;
 import lombok.experimental.SuperBuilder;
 import org.hibernate.annotations.Comment;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 @Getter
 @SuperBuilder(toBuilder = true)
@@ -21,4 +24,8 @@ public class OrderOptionEntity extends BaseEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "orders_detail_id", columnDefinition = "BIGINT", foreignKey = @ForeignKey(value = ConstraintMode.NO_CONSTRAINT))
     private OrderDetailEntity ordersDetail;
+
+    @OneToMany(mappedBy = "orderOption")
+    @Builder.Default
+    private List<OrderOptionDetailEntity> orderOptionDetails = new ArrayList<>();
 }

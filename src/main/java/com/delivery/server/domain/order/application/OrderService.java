@@ -65,6 +65,10 @@ public class OrderService {
                 throw new IllegalArgumentException("주문하려는 상품이 아닙니다.");
             }
 
+            if (!findItem.getStatus()) {
+                throw new IllegalArgumentException("판매 중인 상품이 아닙니다.");
+            }
+
             // 4. 주문에 있는 상품 정보로 가격과 수량을 곱하여 가격을 검증한다.
             BigDecimal quantity = BigDecimal.valueOf(requestItem.getQuantity());
 

@@ -25,7 +25,11 @@ public class StoreEntity extends BaseEntity {
     @Column(name = "name", nullable = false, columnDefinition = "VARCHAR(255)")
     private String name;
 
-    @OneToMany(mappedBy = "store")
-    @Builder.Default
-    private List<OrderEntity> orders = new ArrayList<>();
+    public boolean verifyName(String name) {
+        if (!this.name.equals(name)) {
+            throw new IllegalArgumentException("가게 상호명이 일치하지 않습니다.");
+        }
+
+        return true;
+    }
 }

@@ -35,6 +35,7 @@ public class NotProd {
             ItemEntity chicken = ItemEntity.builder()
                     .name("후라이드치킨")
                     .unitPrice(BigDecimal.valueOf(16000))
+                    .status(true)
                     .store(store)
                     .build();
 
@@ -65,6 +66,7 @@ public class NotProd {
             ItemEntity prinkle = ItemEntity.builder()
                     .name("뿌링클")
                     .unitPrice(BigDecimal.valueOf(19000))
+                    .status(true)
                     .store(store)
                     .build();
 

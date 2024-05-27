@@ -1,5 +1,7 @@
 package com.delivery.server.domain.order.entity;
 
+import com.delivery.server.domain.item.dto.ItemDto;
+import com.delivery.server.domain.item.entity.ItemEntity;
 import com.delivery.server.global.common.entity.BaseEntity;
 import jakarta.persistence.*;
 import lombok.*;
@@ -37,4 +39,13 @@ public class OrderDetailEntity extends BaseEntity {
     @OneToMany(mappedBy = "ordersDetail")
     @Builder.Default
     private List<OrderOptionEntity> orderOptions = new ArrayList<>();
+
+    public static OrderDetailEntity create(OrderEntity order, ItemEntity item, Long quantity) {
+        return OrderDetailEntity.builder()
+                .order(order)
+                .name(item.getName())
+                .quantity(quantity)
+                .unitPrice(item.getUnitPrice())
+                .build();
+    }
 }

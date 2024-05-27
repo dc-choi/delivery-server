@@ -10,6 +10,7 @@ import org.hibernate.annotations.Comment;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 @Entity
 @Getter
@@ -34,4 +35,26 @@ public class OrderEntity extends BaseEntity {
     @OneToMany(mappedBy = "order")
     @Builder.Default
     private List<OrderDetailEntity> orderDetails = new ArrayList<>();
+
+    public static OrderEntity create(StoreEntity store) {
+        return OrderEntity.builder()
+                .orderNo(generateOrderNo())
+                .totalPrice(BigDecimal.ZERO)
+                .store(store)
+                .build();
+    }
+
+    private static String generateOrderNo() {
+        return UUID.randomUUID().toString();
+    }
+
+    public void addTotalPrice(BigDecimal price) {
+        this.totalPrice = this.totalPrice.add(price);
+    }
+
+    public void verifyTotalPrice(BigDecimal price) {
+        if (this.totalPrice.compareTo(price) != 0) {
+            throw new IllegalArgumentException("주문 총 가격이 일치하지 않습니다.");
+        }
+    }
 }

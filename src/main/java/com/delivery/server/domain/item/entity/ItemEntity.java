@@ -1,5 +1,6 @@
 package com.delivery.server.domain.item.entity;
 
+import com.delivery.server.domain.item.dto.ItemDto;
 import com.delivery.server.domain.store.entity.StoreEntity;
 import com.delivery.server.global.common.entity.BaseEntity;
 import jakarta.persistence.*;
@@ -38,4 +39,35 @@ public class ItemEntity extends BaseEntity {
     @OneToMany(mappedBy = "item")
     @Builder.Default
     private List<OptionEntity> options = new ArrayList<>();
+
+    public void isItemInStore(String storeName) {
+        if (!this.store.verifyName(storeName)) {
+            throw new IllegalArgumentException("가게에 있는 상품이 아닙니다.");
+        }
+    }
+
+    public void verifyName(String itemName) {
+        if (!this.name.equals(itemName)) {
+            throw new IllegalArgumentException("주문하려는 상품이 아닙니다.");
+        }
+    }
+
+    public void isItemSale() {
+        if (!this.status) {
+            throw new IllegalArgumentException("판매 중인 상품이 아닙니다.");
+        }
+    }
+
+    public BigDecimal verifyPrice(BigDecimal unitPrice, Long itemQuantity) {
+        BigDecimal quantity = BigDecimal.valueOf(itemQuantity);
+
+        BigDecimal requestItemPrice = unitPrice.multiply(quantity);
+        BigDecimal itemPrice = this.unitPrice.multiply(quantity);
+
+        if (requestItemPrice.compareTo(itemPrice) != 0) {
+            throw new IllegalArgumentException("상품 가격이 일치하지 않습니다.");
+        }
+
+        return itemPrice;
+    }
 }

@@ -27,4 +27,18 @@ public class OptionDetailEntity extends BaseEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "options_id", columnDefinition = "BIGINT", foreignKey = @ForeignKey(value = ConstraintMode.NO_CONSTRAINT))
     private OptionEntity option;
+
+    public void verifyName(String name) {
+        if (!this.name.equals(name)) {
+            throw new IllegalArgumentException("주문하려는 옵션 상세가 아닙니다.");
+        }
+    }
+
+    public BigDecimal verifyDetailPrice(BigDecimal price) {
+        if (this.detailPrice.compareTo(price) != 0) {
+            throw new IllegalArgumentException("옵션 상세 가격이 일치하지 않습니다.");
+        }
+
+        return this.detailPrice;
+    }
 }

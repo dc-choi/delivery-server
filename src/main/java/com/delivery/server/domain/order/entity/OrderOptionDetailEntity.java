@@ -1,5 +1,7 @@
 package com.delivery.server.domain.order.entity;
 
+import com.delivery.server.domain.item.dto.OptionDetailDto;
+import com.delivery.server.domain.item.entity.OptionDetailEntity;
 import com.delivery.server.global.common.entity.BaseEntity;
 import jakarta.persistence.*;
 import lombok.*;
@@ -27,4 +29,12 @@ public class OrderOptionDetailEntity extends BaseEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "orders_option_id", columnDefinition = "BIGINT", foreignKey = @ForeignKey(value = ConstraintMode.NO_CONSTRAINT))
     private OrderOptionEntity orderOption;
+
+    public static OrderOptionDetailEntity create(OrderOptionEntity orderOption, OptionDetailEntity requestOptionDetail) {
+        return OrderOptionDetailEntity.builder()
+                .orderOption(orderOption)
+                .name(requestOptionDetail.getName())
+                .detailPrice(requestOptionDetail.getDetailPrice())
+                .build();
+    }
 }

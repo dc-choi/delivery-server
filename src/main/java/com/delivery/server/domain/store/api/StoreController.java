@@ -10,13 +10,12 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
-import static com.delivery.server.domain.store.api.StoreController.STORE_URL;
+import static com.delivery.server.global.common.url.Url.STORE_URL;
 
 @RestController
 @RequiredArgsConstructor
 @RequestMapping(STORE_URL)
 public class StoreController {
-    public static final String STORE_URL = "/v1/stores";
     private final StoreService storeService;
 
     @GetMapping("{id}/orders")

@@ -1,17 +1,12 @@
 package com.delivery.server.domain.store.entity;
 
-import com.delivery.server.domain.order.entity.OrderEntity;
 import com.delivery.server.global.common.entity.BaseEntity;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 import org.hibernate.annotations.Comment;
-
-import java.util.ArrayList;
-import java.util.List;
 
 @Entity
 @Getter
@@ -25,6 +20,11 @@ public class StoreEntity extends BaseEntity {
     @Column(name = "name", nullable = false, columnDefinition = "VARCHAR(255)")
     private String name;
 
+    /**
+     * 검증 메서드
+     * @param name 가게 상호명
+     * @return true
+     */
     public boolean verifyName(String name) {
         if (!this.name.equals(name)) {
             throw new IllegalArgumentException("가게 상호명이 일치하지 않습니다.");

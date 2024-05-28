@@ -1,8 +1,5 @@
 package com.delivery.server.domain.order.entity;
 
-import com.delivery.server.domain.item.dto.OptionDetailDto;
-import com.delivery.server.domain.item.dto.OptionDto;
-import com.delivery.server.domain.item.entity.OptionEntity;
 import com.delivery.server.global.common.entity.BaseEntity;
 import jakarta.persistence.*;
 import lombok.*;
@@ -31,11 +28,4 @@ public class OrderOptionEntity extends BaseEntity {
     @OneToMany(mappedBy = "orderOption")
     @Builder.Default
     private List<OrderOptionDetailEntity> orderOptionDetails = new ArrayList<>();
-
-    public static OrderOptionEntity create(OrderDetailEntity orderDetail, OptionEntity requestOption) {
-        return OrderOptionEntity.builder()
-                .ordersDetail(orderDetail)
-                .name(requestOption.getName())
-                .build();
-    }
 }

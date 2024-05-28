@@ -1,6 +1,7 @@
 package com.delivery.server.domain.item.entity;
 
-import com.delivery.server.domain.item.dto.ItemDto;
+import com.delivery.server.domain.order.entity.OrderDetailEntity;
+import com.delivery.server.domain.order.entity.OrderEntity;
 import com.delivery.server.domain.store.entity.StoreEntity;
 import com.delivery.server.global.common.entity.BaseEntity;
 import jakarta.persistence.*;
@@ -40,24 +41,56 @@ public class ItemEntity extends BaseEntity {
     @Builder.Default
     private List<OptionEntity> options = new ArrayList<>();
 
+    /**
+     * 주문 내역 생성 메서드
+     * @param order 주문
+     * @param quantity 상품 수량
+     * @return 주문 내역
+     */
+    public OrderDetailEntity create(OrderEntity order, Long quantity) {
+        return OrderDetailEntity.builder()
+                .order(order)
+                .name(this.name)
+                .quantity(quantity)
+                .unitPrice(this.unitPrice)
+                .build();
+    }
+
+    /**
+     * 검증 메서드
+     * @param storeName 가게 이름
+     */
     public void isItemInStore(String storeName) {
         if (!this.store.verifyName(storeName)) {
             throw new IllegalArgumentException("가게에 있는 상품이 아닙니다.");
         }
     }
 
+    /**
+     * 검증 메서드
+     * @param itemName 상품 이름
+     */
     public void verifyName(String itemName) {
         if (!this.name.equals(itemName)) {
             throw new IllegalArgumentException("주문하려는 상품이 아닙니다.");
         }
     }
 
+    /**
+     * 검증 메서드
+     */
     public void isItemSale() {
         if (!this.status) {
             throw new IllegalArgumentException("판매 중인 상품이 아닙니다.");
         }
     }
 
+    /**
+     * 검증 메서드
+     * @param unitPrice 상품 단가
+     * @param itemQuantity 상품 수량
+     * @return 상품 가격
+     */
     public BigDecimal verifyPrice(BigDecimal unitPrice, Long itemQuantity) {
         BigDecimal quantity = BigDecimal.valueOf(itemQuantity);
 

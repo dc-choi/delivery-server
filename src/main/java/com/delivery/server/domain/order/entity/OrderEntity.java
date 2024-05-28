@@ -36,6 +36,11 @@ public class OrderEntity extends BaseEntity {
     @Builder.Default
     private List<OrderDetailEntity> orderDetails = new ArrayList<>();
 
+    /**
+     * 주문 생성 메서드
+     * @param store 가게
+     * @return 주문
+     */
     public static OrderEntity create(StoreEntity store) {
         return OrderEntity.builder()
                 .orderNo(generateOrderNo())
@@ -44,16 +49,28 @@ public class OrderEntity extends BaseEntity {
                 .build();
     }
 
+    /**
+     * 주문 번호 생성 메서드
+     * @return 주문 번호
+     */
     private static String generateOrderNo() {
         return UUID.randomUUID().toString();
     }
 
+    /**
+     * 가격 추가 메서드
+     * @param price 가격
+     */
     public void addTotalPrice(BigDecimal price) {
         this.totalPrice = this.totalPrice.add(price);
     }
 
-    public void verifyTotalPrice(BigDecimal price) {
-        if (this.totalPrice.compareTo(price) != 0) {
+    /**
+     * 검증 메서드
+     * @param totalPrice 주문 총 가격
+     */
+    public void verifyTotalPrice(BigDecimal totalPrice) {
+        if (this.totalPrice.compareTo(totalPrice) != 0) {
             throw new IllegalArgumentException("주문 총 가격이 일치하지 않습니다.");
         }
     }

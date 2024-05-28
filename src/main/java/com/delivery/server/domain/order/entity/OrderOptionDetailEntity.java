@@ -1,6 +1,5 @@
 package com.delivery.server.domain.order.entity;
 
-import com.delivery.server.domain.item.dto.OptionDetailDto;
 import com.delivery.server.domain.item.entity.OptionDetailEntity;
 import com.delivery.server.global.common.entity.BaseEntity;
 import jakarta.persistence.*;

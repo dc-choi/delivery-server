@@ -61,7 +61,7 @@ public class OrderService {
             // 5. 주문에 있는 상품 정보로 가격과 수량을 곱하여 가격을 검증한다.
             order.addTotalPrice(findItem.verifyPrice(requestItem.getUnitPrice(), requestItem.getQuantity()));
 
-            OrderDetailEntity orderDetail = OrderDetailEntity.create(order, findItem, requestItem.getQuantity());
+            OrderDetailEntity orderDetail = findItem.create(order, requestItem.getQuantity());
             orderDetailRepository.save(orderDetail);
 
             // 6. 주문에 있는 상품의 옵션 정보로 옵션을 찾고 이름과 필요 여부에 따라 검증한다.
@@ -75,7 +75,7 @@ public class OrderService {
                         .map(OptionDetailDto::toEntity)
                         .toList());
 
-                OrderOptionEntity orderOption = OrderOptionEntity.create(orderDetail, findOption);
+                OrderOptionEntity orderOption = findOption.create(orderDetail);
                 orderOptionRepository.save(orderOption);
 
                 // 7. 주문에 있는 상품의 옵션 상세 정보로 옵션 상세를 찾고 이름과 가격을 검증한다.
@@ -87,8 +87,7 @@ public class OrderService {
 
                     order.addTotalPrice(findOptionDetail.verifyDetailPrice(requestOptionDetail.getPrice()));
 
-                    OrderOptionDetailEntity orderOptionDetail = OrderOptionDetailEntity.create(orderOption, findOptionDetail);
-                    orderOptionDetailRepository.save(orderOptionDetail);
+                    orderOptionDetailRepository.save(findOptionDetail.create(orderOption));
                 });
             });
         });

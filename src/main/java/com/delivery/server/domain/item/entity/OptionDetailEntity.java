@@ -1,5 +1,7 @@
 package com.delivery.server.domain.item.entity;
 
+import com.delivery.server.domain.order.entity.OrderOptionDetailEntity;
+import com.delivery.server.domain.order.entity.OrderOptionEntity;
 import com.delivery.server.global.common.entity.BaseEntity;
 import jakarta.persistence.*;
 import lombok.*;
@@ -28,14 +30,36 @@ public class OptionDetailEntity extends BaseEntity {
     @JoinColumn(name = "options_id", columnDefinition = "BIGINT", foreignKey = @ForeignKey(value = ConstraintMode.NO_CONSTRAINT))
     private OptionEntity option;
 
-    public void verifyName(String name) {
-        if (!this.name.equals(name)) {
+    /**
+     * 주문 옵션 상세 생성 메서드
+     * @param orderOption 주문 옵션
+     * @return 주문 옵션 상세
+     */
+    public OrderOptionDetailEntity create(OrderOptionEntity orderOption) {
+        return OrderOptionDetailEntity.builder()
+                .orderOption(orderOption)
+                .name(this.name)
+                .detailPrice(this.detailPrice)
+                .build();
+    }
+
+    /**
+     * 검증 메서드
+     * @param optionDetailName 옵션 상세 이름
+     */
+    public void verifyName(String optionDetailName) {
+        if (!this.name.equals(optionDetailName)) {
             throw new IllegalArgumentException("주문하려는 옵션 상세가 아닙니다.");
         }
     }
 
-    public BigDecimal verifyDetailPrice(BigDecimal price) {
-        if (this.detailPrice.compareTo(price) != 0) {
+    /**
+     * 검증 메서드
+     * @param detailPrice 옵션 상세 가격
+     * @return 옵션 상세 가격
+     */
+    public BigDecimal verifyDetailPrice(BigDecimal detailPrice) {
+        if (this.detailPrice.compareTo(detailPrice) != 0) {
             throw new IllegalArgumentException("옵션 상세 가격이 일치하지 않습니다.");
         }
 

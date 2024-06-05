@@ -1,9 +1,5 @@
 package com.delivery.server.global.init;
 
-import com.delivery.server.domain.order.dao.OrderDetailRepository;
-import com.delivery.server.domain.order.dao.OrderOptionDetailRepository;
-import com.delivery.server.domain.order.dao.OrderOptionRepository;
-import com.delivery.server.domain.order.dao.OrderRepository;
 import com.delivery.server.domain.order.entity.OrderDetailEntity;
 import com.delivery.server.domain.order.entity.OrderEntity;
 import com.delivery.server.domain.order.entity.OrderOptionDetailEntity;
@@ -17,15 +13,15 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @RequiredArgsConstructor
 @Configuration
 public class NotProd2 {
     private final StoreRepository storeRepository;
-    private final OrderRepository orderRepository;
-    private final OrderDetailRepository orderDetailRepository;
-    private final OrderOptionRepository orderOptionRepository;
-    private final OrderOptionDetailRepository orderOptionDetailRepository;
+    private final BulkInsertService bulkInsertService;
 
     @Bean
     @Order(2)
@@ -35,9 +31,14 @@ public class NotProd2 {
 //            StoreEntity bhc = storeRepository.findById(1L)
 //                    .orElseThrow(() -> new IllegalArgumentException("삭제된 가게 입니다."));
 //
-//            for (int i = 0; i < 1000000; i++) {
-//                OrderEntity order = OrderEntity.create(bhc);
-//                orderRepository.save(order);
+//            List<OrderEntity> orderEntities = new ArrayList<>();
+//            List<OrderDetailEntity> orderDetailEntities = new ArrayList<>();
+//            List<OrderOptionEntity> orderOptionEntities = new ArrayList<>();
+//            List<OrderOptionDetailEntity> orderOptionDetailEntities = new ArrayList<>();
+//
+//            for (long i = 0; i < 10000000; i++) {
+//                OrderEntity order = OrderEntity.create(bhc, LocalDateTime.now());
+//                orderEntities.add(order);
 //
 //                OrderDetailEntity orderDetail = OrderDetailEntity.builder()
 //                        .order(order)
@@ -45,20 +46,31 @@ public class NotProd2 {
 //                        .quantity(2L)
 //                        .unitPrice(BigDecimal.valueOf(19000))
 //                        .build();
-//                orderDetailRepository.save(orderDetail);
+//                orderDetailEntities.add(orderDetail);
 //
 //                OrderOptionEntity orderOption = OrderOptionEntity.builder()
 //                        .ordersDetail(orderDetail)
 //                        .name("전용 소스")
 //                        .build();
-//                orderOptionRepository.save(orderOption);
+//                orderOptionEntities.add(orderOption);
 //
 //                OrderOptionDetailEntity orderOptionDetail = OrderOptionDetailEntity.builder()
 //                        .orderOption(orderOption)
 //                        .name("배송 여부")
 //                        .detailPrice(BigDecimal.valueOf(0))
 //                        .build();
-//                orderOptionDetailRepository.save(orderOptionDetail);
+//                orderOptionDetailEntities.add(orderOptionDetail);
+//
+//                if (i % 1000 == 0) {
+//                    bulkInsertService.insert(orderEntities, orderDetailEntities, orderOptionEntities, orderOptionDetailEntities);
+//                    orderEntities.clear();
+//                    orderDetailEntities.clear();
+//                    orderOptionEntities.clear();
+//                    orderOptionDetailEntities.clear();
+//                }
+//            }
+//
+//            bulkInsertService.insert(orderEntities, orderDetailEntities, orderOptionEntities, orderOptionDetailEntities);
         };
     }
 }

@@ -8,6 +8,7 @@ import lombok.experimental.SuperBuilder;
 import org.hibernate.annotations.Comment;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -45,6 +46,20 @@ public class OrderEntity extends BaseEntity {
         return OrderEntity.builder()
                 .orderNo(generateOrderNo())
                 .totalPrice(BigDecimal.ZERO)
+                .store(store)
+                .build();
+    }
+
+    /**
+     * 주문 생성 메서드
+     * @param store 가게
+     * @return 주문
+     */
+    public static OrderEntity create(StoreEntity store, LocalDateTime date) {
+        return OrderEntity.builder()
+                .orderNo(generateOrderNo())
+                .totalPrice(BigDecimal.ZERO)
+                .createdAt(date)
                 .store(store)
                 .build();
     }

@@ -31,7 +31,7 @@ public class StoreController {
     ) {
         if (page <= 0) page = 1;
 
-        Pageable pageable = PageRequest.of(page - 1, size);
+        Pageable pageable = PageRequest.of(page, size);
 
         return ResponseEntity.ok().body(storeService.getStoreOrders(id, pageable, start, end));
     }

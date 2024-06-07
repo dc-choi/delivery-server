@@ -9,6 +9,7 @@ import com.delivery.server.global.common.response.PageResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Slice;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -23,7 +24,7 @@ public class StoreService {
         StoreEntity store = storeRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("삭제된 가게 입니다."));
 
-        Page<OrderEntity> orders = orderRepository.findByStoreId(store.getId(), pageable, start, end);
+        Slice<OrderEntity> orders = orderRepository.findByStoreId(store.getId(), pageable, start, end);
 
         return PageResponse.of(orders.map(OrderDto::of));
     }

@@ -13,19 +13,19 @@ import java.util.List;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Builder
 public class OrderDto {
+    private Long id;
     @Setter
     private String orderNo;
     private BigDecimal totalPrice;
     private StoreDto store;
     private List<ItemDto> items;
-    private List<OrderDetailDto> orderDetails;
 
     public static OrderDto of(OrderEntity order) {
         return OrderDto.builder()
+                .id(order.getId())
                 .orderNo(order.getOrderNo())
                 .totalPrice(order.getTotalPrice())
                 .store(StoreDto.of(order.getStore()))
-                .orderDetails(OrderDetailDto.of(order.getOrderDetails()))
                 .build();
     }
 }

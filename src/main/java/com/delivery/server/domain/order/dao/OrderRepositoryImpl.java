@@ -39,14 +39,6 @@ public class OrderRepositoryImpl implements OrderRepositoryCustom {
                 .limit(pageable.getPageSize())
                 .fetch();
 
-//        JPAQuery<Long> total = jpaQueryFactory
-//                .select(orderEntity.count())
-//                .from(orderEntity)
-//                .leftJoin(storeEntity).on(storeEntity.eq(orderEntity.store))
-//                .where(where)
-//                .orderBy(orderEntity.id.desc());
-
-//        return PageableExecutionUtils.getPage(orders, pageable, total::fetchOne);
         return PageInfo.checkLastPage(pageable, orders);
     }
 }
